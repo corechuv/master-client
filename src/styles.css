@@ -34,22 +34,6 @@ a {
   top: 0;
 }
 
-.shell__brand {
-  display: grid;
-  gap: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-}
-
-.shell__brand span {
-  font-size: 18px;
-}
-
-.shell__brand small {
-  font-size: 12px;
-  color: #e9d2db;
-}
-
 .shell__links {
   display: grid;
   gap: 12px;

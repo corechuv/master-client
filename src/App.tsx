@@ -13,7 +13,6 @@ function AppShell({ children }: { children: JSX.Element }) {
       <aside className="shell__nav">
         <div className="shell__brand">
           <img src="/logo.png" className={c.logo} />
-          <small>Master Panel</small>
         </div>
         <nav className="shell__links">
           <NavLink to="/calendar" className={({ isActive }) => (isActive ? "is-active" : "")}>
