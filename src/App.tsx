@@ -2,14 +2,8 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Dashboard } from "./pages/Dashboard";
-import { useMemo } from "react";
-
-function useToken() {
-  return useMemo(() => localStorage.getItem("master_token"), []);
-}
-
 function Protected({ children }: { children: JSX.Element }) {
-  const token = useToken();
+  const token = typeof window === "undefined" ? null : localStorage.getItem("master_token");
   if (!token) {
     return <Navigate to="/login" replace />;
   }
