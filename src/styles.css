@@ -26,8 +26,12 @@ a {
   background: #1b1418;
   color: #f7f1f4;
   padding: 28px 20px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   gap: 32px;
+  height: 100vh;
+  position: sticky;
+  top: 0;
 }
 
 .shell__brand {

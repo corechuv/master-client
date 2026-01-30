@@ -117,10 +117,10 @@ export function Calendar() {
           <div
             key={booking.id}
             className={`${styles.booking} ${booking.status === "pending"
-                ? styles.bookingPending
-                : booking.status === "cancelled"
-                  ? styles.bookingCancelled
-                  : ""
+              ? styles.bookingPending
+              : booking.status === "cancelled"
+                ? styles.bookingCancelled
+                : ""
               }`}
             style={{
               gridColumn: dayIndex + 2,
@@ -139,12 +139,14 @@ export function Calendar() {
 
   return (
     <div className={styles.calendar}>
+      <div className={styles.title}>
+        <h1>Kalender</h1>
+      </div>
       <div className={styles.toolbar}>
         <button className="button button--ghost" onClick={() => setWeekStart(addDays(weekStart, -7))}>
           ◀
         </button>
         <div className={styles.toolbarLabel}>
-          <h1>Kalender</h1>
           <p>{weekLabel}</p>
         </div>
         <button className="button button--ghost" onClick={() => setWeekStart(addDays(weekStart, 7))}>
