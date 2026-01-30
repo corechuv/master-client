@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiRequest, getToken } from "../api";
+import { apiRequest, createBooking, getToken } from "../api";
  
 type Booking = {
   id: string;
@@ -39,6 +39,17 @@ export function Dashboard() {
     status: "",
   });
   const [error, setError] = useState<string | null>(null);
+  const [createState, setCreateState] = useState({
+    date: "",
+    time: "",
+    service_id: "",
+    name: "",
+    email: "",
+    phone: "",
+    notes: "",
+    status: "confirmed",
+  });
+  const [creating, setCreating] = useState(false);
 
   const loadData = () => {
     setLoading(true);
@@ -107,6 +118,38 @@ export function Dashboard() {
     navigate("/login");
   };
 
+  const handleCreateBooking = async () => {
+    setCreating(true);
+    setError(null);
+    try {
+      await createBooking({
+        date: createState.date,
+        time: createState.time,
+        service_id: createState.service_id,
+        name: createState.name,
+        email: createState.email,
+        phone: createState.phone,
+        notes: createState.notes || undefined,
+        status: createState.status,
+      });
+      setCreateState({
+        date: "",
+        time: "",
+        service_id: "",
+        name: "",
+        email: "",
+        phone: "",
+        notes: "",
+        status: "confirmed",
+      });
+      loadData();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Buchung anlegen fehlgeschlagen");
+    } finally {
+      setCreating(false);
+    }
+  };
+
   return (
     <div className="dashboard">
       <header className="dashboard__header">
@@ -118,6 +161,96 @@ export function Dashboard() {
           Logout
         </button>
       </header>
+
+      <section className="panel">
+        <header className="panel__header">
+          <div>
+            <h2>Neue Buchung erstellen</h2>
+            <p>Trage Termine fuer deine Kunden manuell ein.</p>
+          </div>
+        </header>
+        <div className="panel__content">
+          <div className="edit">
+            <div className="edit__grid">
+              <label>
+                Datum
+                <input
+                  type="date"
+                  value={createState.date}
+                  onChange={(event) => setCreateState({ ...createState, date: event.target.value })}
+                />
+              </label>
+              <label>
+                Uhrzeit
+                <input
+                  type="time"
+                  value={createState.time}
+                  onChange={(event) => setCreateState({ ...createState, time: event.target.value })}
+                />
+              </label>
+              <label>
+                Service
+                <select
+                  value={createState.service_id}
+                  onChange={(event) => setCreateState({ ...createState, service_id: event.target.value })}
+                >
+                  <option value="">Bitte waehlen</option>
+                  {serviceOptions.map((service) => (
+                    <option key={service.id} value={service.id}>
+                      {service.title}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label>
+                Status
+                <select
+                  value={createState.status}
+                  onChange={(event) => setCreateState({ ...createState, status: event.target.value })}
+                >
+                  <option value="confirmed">Confirmed</option>
+                  <option value="pending">Pending</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </label>
+              <label>
+                Kunde
+                <input
+                  value={createState.name}
+                  onChange={(event) => setCreateState({ ...createState, name: event.target.value })}
+                />
+              </label>
+              <label>
+                E-Mail
+                <input
+                  type="email"
+                  value={createState.email}
+                  onChange={(event) => setCreateState({ ...createState, email: event.target.value })}
+                />
+              </label>
+              <label>
+                Telefon
+                <input
+                  value={createState.phone}
+                  onChange={(event) => setCreateState({ ...createState, phone: event.target.value })}
+                />
+              </label>
+            </div>
+            <label>
+              Notiz
+              <textarea
+                value={createState.notes}
+                onChange={(event) => setCreateState({ ...createState, notes: event.target.value })}
+              />
+            </label>
+            <div className="edit__actions">
+              <button className="button" onClick={handleCreateBooking} disabled={creating}>
+                {creating ? "Speichern..." : "Buchung anlegen"}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
 
       <section className="dashboard__controls">
         <label>

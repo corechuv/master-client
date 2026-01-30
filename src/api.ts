@@ -38,3 +38,60 @@ export async function register(masterId: string, email: string, password: string
     body: JSON.stringify({ master_id: masterId, email, password }),
   });
 }
+
+export type RegisterPayload = {
+  name: string;
+  role: string;
+  experience_years: number;
+  photo?: string;
+  email: string;
+  password: string;
+  phone?: string;
+};
+
+export async function registerMaster(payload: RegisterPayload) {
+  return apiRequest<{ token: string }>("/auth/register", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export type Profile = {
+  id: string;
+  master_id: string;
+  email: string;
+  name?: string;
+  role?: string;
+  experience_years?: number;
+  photo?: string;
+  phone?: string;
+};
+
+export async function getProfile() {
+  return apiRequest<Profile>("/me");
+}
+
+export async function updateProfile(payload: Partial<Profile>) {
+  return apiRequest<{ ok: boolean }>("/me", {
+    method: "PATCH",
+    body: JSON.stringify(payload),
+  });
+}
+
+export type BookingCreate = {
+  date: string;
+  time: string;
+  service_id: string;
+  name: string;
+  email: string;
+  phone: string;
+  notes?: string;
+  status?: string;
+};
+
+export async function createBooking(payload: BookingCreate) {
+  return apiRequest<{ id: string }>("/bookings", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}

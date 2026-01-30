@@ -1,33 +1,38 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { apiRequest, register } from "../api";
+import { registerMaster } from "../api";
 
-type Master = { id: string; name: string };
- 
 export function Register() {
   const navigate = useNavigate();
-  const [masters, setMasters] = useState<Master[]>([]);
-  const [masterId, setMasterId] = useState("");
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const [experience, setExperience] = useState("0");
+  const [phone, setPhone] = useState("");
+  const [photo, setPhoto] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    apiRequest<Master[]>("/masters")
-      .then((data) => {
-        setMasters(data);
-        if (data[0]) setMasterId(data[0].id);
-      })
-      .catch(() => undefined);
-  }, []);
-
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
+    if (password !== confirmPassword) {
+      setError("Passwoerter stimmen nicht ueberein.");
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
-      const result = await register(masterId, email, password);
+      const result = await registerMaster({
+        name,
+        role,
+        experience_years: Number.isNaN(Number(experience)) ? 0 : Number(experience),
+        photo: photo || undefined,
+        email,
+        password,
+        phone: phone || undefined,
+      });
       localStorage.setItem("master_token", result.token);
       navigate("/dashboard");
     } catch (err) {
@@ -41,17 +46,33 @@ export function Register() {
     <div className="auth">
       <div className="auth__panel">
         <h1>Registrierung</h1>
-        <p>Erstelle deinen Zugang und verwalte deine Termine.</p>
+        <p>Erstelle dein Meisterkonto mit Profilinformationen.</p>
         <form onSubmit={handleSubmit} className="form">
           <label>
-            Master Profil
-            <select value={masterId} onChange={(event) => setMasterId(event.target.value)}>
-              {masters.map((master) => (
-                <option key={master.id} value={master.id}>
-                  {master.name}
-                </option>
-              ))}
-            </select>
+            Vollstaendiger Name
+            <input value={name} onChange={(event) => setName(event.target.value)} required />
+          </label>
+          <label>
+            Rolle / Spezialisierung
+            <input value={role} onChange={(event) => setRole(event.target.value)} required />
+          </label>
+          <label>
+            Berufserfahrung (Jahre)
+            <input
+              type="number"
+              min="0"
+              value={experience}
+              onChange={(event) => setExperience(event.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Telefon (optional)
+            <input value={phone} onChange={(event) => setPhone(event.target.value)} />
+          </label>
+          <label>
+            Foto-URL (optional)
+            <input value={photo} onChange={(event) => setPhoto(event.target.value)} />
           </label>
           <label>
             E-Mail
@@ -68,6 +89,15 @@ export function Register() {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
+              required
+            />
+          </label>
+          <label>
+            Passwort bestaetigen
+            <input
+              type="password"
+              value={confirmPassword}
+              onChange={(event) => setConfirmPassword(event.target.value)}
               required
             />
           </label>
