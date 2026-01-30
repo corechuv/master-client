@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiRequest } from "../api";
-import c from "./Calendar.module.scss"
+import styles from "./Calendar.module.scss";
 
 type Booking = {
   id: string;
@@ -116,7 +116,13 @@ export function Calendar() {
         return (
           <div
             key={booking.id}
-            className={`${c.calendar__booking} calendar__booking--${booking.status}`}
+            className={`${styles.booking} ${
+              booking.status === "pending"
+                ? styles.bookingPending
+                : booking.status === "cancelled"
+                  ? styles.bookingCancelled
+                  : ""
+            }`}
             style={{
               gridColumn: dayIndex + 2,
               gridRow: `${rowStart} / ${rowStart + span}`,
@@ -133,12 +139,12 @@ export function Calendar() {
   }, [bookings, days]);
 
   return (
-    <div className={c.calendar__page}>
-      <div className="calendar-toolbar">
+    <div className={styles.calendar}>
+      <div className={styles.toolbar}>
         <button className="button button--ghost" onClick={() => setWeekStart(addDays(weekStart, -7))}>
           ◀
         </button>
-        <div className="calendar-toolbar__label">
+        <div className={styles.toolbarLabel}>
           <h1>Kalender</h1>
           <p>{weekLabel}</p>
         </div>
@@ -149,22 +155,26 @@ export function Calendar() {
 
       {error ? <p className="form__error">{error}</p> : null}
 
-      <div className={c.calendar__weekdays}>
+      <div className={styles.weekdays}>
         <div />
         {days.map((day, index) => (
-          <div key={formatDate(day)} className="calendar-weekdays__item">
+          <div key={formatDate(day)} className={styles.weekdaysItem}>
             <span>{DAY_LABELS[index]}</span>
             <strong>{day.getDate().toString().padStart(2, "0")}</strong>
           </div>
         ))}
       </div>
 
-      <div className="calendar-scroll">
-        <div className="calendar-grid">
+      <div className={styles.scroll}>
+        <div className={styles.grid}>
           {slots.map((time, index) => {
             const isHour = index % 4 === 0;
             return (
-              <div key={time} className={`calendar-time ${isHour ? "calendar-time--hour" : ""}`} style={{ gridRow: index + 1 }}>
+              <div
+                key={time}
+                className={`${styles.time} ${isHour ? styles.timeHour : ""}`}
+                style={{ gridRow: index + 1 }}
+              >
                 {isHour ? time : ""}
               </div>
             );
@@ -179,7 +189,7 @@ export function Calendar() {
                 <button
                   key={key}
                   type="button"
-                  className="calendar-slot"
+                  className={styles.slot}
                   style={{ gridColumn: dayIndex + 2, gridRow: slotIndex + 1 }}
                   disabled={isBusy || isPast}
                   onClick={() => handleSlotClick(day, time)}
