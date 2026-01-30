@@ -1,0 +1,54 @@
+.calendar__page {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
+    gap: 16px;
+    background: #ffffff;
+
+    &__weekdays {
+        display: grid;
+        grid-template-columns: 80px repeat(7, minmax(0, 1fr));
+        border-bottom: 1px solid #e1e1e1;
+        background: #fff;
+        padding: 12px 0;
+    }
+
+    &__weekdays--item {
+        display: grid;
+        justify-items: center;
+        gap: 4px;
+        text-transform: uppercase;
+        font-size: 15px;
+        font-weight: 300;
+        color: #9c9c9c;
+
+        strong {
+            font-size: 26px;
+            color: #1a1a1a;
+            font-weight: 300;
+        }
+    }
+
+    &__booking {
+        background: #cce1ea;
+        padding: 6px 8px;
+        font-size: 13px;
+        font-weight: 300;
+        display: grid;
+        gap: 4px;
+        z-index: 2;
+        margin: 2px;
+        color: #090909;
+    }
+
+    &__slot {
+        border: 1px solid #e1e1e1;
+        background: transparent;
+        cursor: pointer;
+        padding: 0;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+}

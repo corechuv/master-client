@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiRequest } from "../api";
+import c from "./Calendar.module.scss"
 
 type Booking = {
   id: string;
@@ -115,7 +116,7 @@ export function Calendar() {
         return (
           <div
             key={booking.id}
-            className={`calendar__booking calendar__booking--${booking.status}`}
+            className={`${c.calendar__booking} calendar__booking--${booking.status}`}
             style={{
               gridColumn: dayIndex + 2,
               gridRow: `${rowStart} / ${rowStart + span}`,
@@ -132,7 +133,7 @@ export function Calendar() {
   }, [bookings, days]);
 
   return (
-    <div className="calendar-page">
+    <div className={c.calendar__page}>
       <div className="calendar-toolbar">
         <button className="button button--ghost" onClick={() => setWeekStart(addDays(weekStart, -7))}>
           ◀
@@ -148,7 +149,7 @@ export function Calendar() {
 
       {error ? <p className="form__error">{error}</p> : null}
 
-      <div className="calendar-weekdays">
+      <div className={c.calendar__weekdays}>
         <div />
         {days.map((day, index) => (
           <div key={formatDate(day)} className="calendar-weekdays__item">
