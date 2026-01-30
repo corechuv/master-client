@@ -23,7 +23,7 @@ a {
 }
 
 .shell__nav {
-  background: #f4effa;
+  background: #310722;
   color: #f7f1f4;
   padding: 28px 20px;
   display: flex;
@@ -46,11 +46,11 @@ a {
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: .1em;
-  color: #000;
+  color: white;
 }
 
 .shell__links a.is-active {
-  color: #000000;
+  color: whitesmoke;
 }
 
 .shell__main {
