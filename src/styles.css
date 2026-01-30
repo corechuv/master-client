@@ -42,16 +42,14 @@ a {
 .shell__links a {
   text-decoration: none;
   padding: 10px 12px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.06);
-  font-size: 13px;
+  font-size: 14px;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: .1em;
+  color: black;
 }
 
 .shell__links a.is-active {
-  background: #e9d2db;
-  color: #1b1418;
+  color: #000000;
 }
 
 .shell__main {
