@@ -3,6 +3,8 @@ import { Login } from "./pages/Login";
 import { Register } from "./pages/Register";
 import { Dashboard } from "./pages/Dashboard";
 import { Profile } from "./pages/Profile";
+import { Calendar } from "./pages/Calendar";
+import { BookingCreate } from "./pages/BookingCreate";
 
 function AppShell({ children }: { children: JSX.Element }) {
   return (
@@ -13,6 +15,9 @@ function AppShell({ children }: { children: JSX.Element }) {
           <small>Master Panel</small>
         </div>
         <nav className="shell__links">
+          <NavLink to="/calendar" className={({ isActive }) => (isActive ? "is-active" : "")}>
+            Kalender
+          </NavLink>
           <NavLink to="/dashboard" className={({ isActive }) => (isActive ? "is-active" : "")}>
             Buchungen
           </NavLink>
@@ -40,6 +45,16 @@ export function App() {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route
+        path="/calendar"
+        element={
+          <Protected>
+            <AppShell>
+              <Calendar />
+            </AppShell>
+          </Protected>
+        }
+      />
+      <Route
         path="/dashboard"
         element={
           <Protected>
@@ -55,6 +70,16 @@ export function App() {
           <Protected>
             <AppShell>
               <Profile />
+            </AppShell>
+          </Protected>
+        }
+      />
+      <Route
+        path="/bookings/new"
+        element={
+          <Protected>
+            <AppShell>
+              <BookingCreate />
             </AppShell>
           </Protected>
         }
