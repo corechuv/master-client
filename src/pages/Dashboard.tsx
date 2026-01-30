@@ -155,7 +155,6 @@ export function Dashboard() {
     <div className="dashboard">
       <header className="dashboard__header">
         <div>
-          <img src="/logo.png" className={c.logo} />
           <p>Deine Buchungen im Überblick.</p>
         </div>
         <button className="button button--ghost" onClick={handleLogout}>

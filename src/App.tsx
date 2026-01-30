@@ -5,13 +5,14 @@ import { Dashboard } from "./pages/Dashboard";
 import { Profile } from "./pages/Profile";
 import { Calendar } from "./pages/Calendar";
 import { BookingCreate } from "./pages/BookingCreate";
+import c from "./App.module.scss"
 
 function AppShell({ children }: { children: JSX.Element }) {
   return (
     <div className="shell">
       <aside className="shell__nav">
         <div className="shell__brand">
-          <span>MIRA</span>
+          <img src="/logo.png" className={c.logo} />
           <small>Master Panel</small>
         </div>
         <nav className="shell__links">
