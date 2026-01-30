@@ -149,7 +149,7 @@ export function Calendar() {
               d="M15 6l-6 6 6 6"
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.4"
+              strokeWidth="1"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
@@ -164,7 +164,7 @@ export function Calendar() {
               d="M9 6l6 6-6 6"
               fill="none"
               stroke="currentColor"
-              strokeWidth="1.4"
+              strokeWidth="1"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
