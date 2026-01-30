@@ -65,8 +65,8 @@ export function Calendar() {
   const weekLabel = `${days[0].getDate().toString().padStart(2, "0")}.${(days[0].getMonth() + 1)
     .toString()
     .padStart(2, "0")} - ${days[6].getDate().toString().padStart(2, "0")}.${(days[6].getMonth() + 1)
-    .toString()
-    .padStart(2, "0")}`;
+      .toString()
+      .padStart(2, "0")}`;
 
   useEffect(() => {
     setError(null);
@@ -116,13 +116,12 @@ export function Calendar() {
         return (
           <div
             key={booking.id}
-            className={`${styles.booking} ${
-              booking.status === "pending"
+            className={`${styles.booking} ${booking.status === "pending"
                 ? styles.bookingPending
                 : booking.status === "cancelled"
                   ? styles.bookingCancelled
                   : ""
-            }`}
+              }`}
             style={{
               gridColumn: dayIndex + 2,
               gridRow: `${rowStart} / ${rowStart + span}`,
@@ -165,41 +164,39 @@ export function Calendar() {
         ))}
       </div>
 
-      <div className={styles.scroll}>
-        <div className={styles.grid}>
-          {slots.map((time, index) => {
-            const isHour = index % 4 === 0;
+      <div className={styles.grid}>
+        {slots.map((time, index) => {
+          const isHour = index % 4 === 0;
+          return (
+            <div
+              key={time}
+              className={`${styles.time} ${isHour ? styles.timeHour : ""}`}
+              style={{ gridRow: index + 1 }}
+            >
+              {isHour ? time : ""}
+            </div>
+          );
+        })}
+
+        {days.map((day, dayIndex) =>
+          slots.map((time, slotIndex) => {
+            const key = `${formatDate(day)}-${time}`;
+            const isBusy = busySlots.has(key);
+            const isPast = isPastSlot(day, time);
             return (
-              <div
-                key={time}
-                className={`${styles.time} ${isHour ? styles.timeHour : ""}`}
-                style={{ gridRow: index + 1 }}
-              >
-                {isHour ? time : ""}
-              </div>
+              <button
+                key={key}
+                type="button"
+                className={styles.slot}
+                style={{ gridColumn: dayIndex + 2, gridRow: slotIndex + 1 }}
+                disabled={isBusy || isPast}
+                onClick={() => handleSlotClick(day, time)}
+              />
             );
-          })}
+          })
+        )}
 
-          {days.map((day, dayIndex) =>
-            slots.map((time, slotIndex) => {
-              const key = `${formatDate(day)}-${time}`;
-              const isBusy = busySlots.has(key);
-              const isPast = isPastSlot(day, time);
-              return (
-                <button
-                  key={key}
-                  type="button"
-                  className={styles.slot}
-                  style={{ gridColumn: dayIndex + 2, gridRow: slotIndex + 1 }}
-                  disabled={isBusy || isPast}
-                  onClick={() => handleSlotClick(day, time)}
-                />
-              );
-            })
-          )}
-
-          {bookingBlocks}
-        </div>
+        {bookingBlocks}
       </div>
     </div>
   );

@@ -52,14 +52,6 @@
     font-weight: 300;
 }
 
-.scroll {
-    background: #ffffff;
-    border-radius: 0 0 16px 16px;
-    overflow: auto;
-    border: 1px solid #e1e1e1;
-    border-top: none;
-}
-
 .grid {
     display: grid;
     grid-template-columns: 80px repeat(7, minmax(140px, 1fr));
