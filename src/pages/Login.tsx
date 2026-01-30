@@ -27,7 +27,8 @@ export function Login() {
   return (
     <div className="auth">
       <div className="auth__panel">
-        <h1>Master Login</h1>
+        <img src="/logo.png" className="auth__logo" />
+        <h1>Login</h1>
         <p>Verwalte deine Termine und Kundenanfragen.</p>
         <form onSubmit={handleSubmit} className="form">
           <label>
