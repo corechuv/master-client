@@ -1,7 +1,8 @@
+
 const API_BASE = import.meta.env.VITE_MASTER_API_URL ?? "http://localhost:8001";
 
 export function getToken() {
-  return localStorage.getItem("master_token");
+  return localStorage.getItem("...");
 }
 
 export async function apiRequest<T>(path: string, options: RequestInit = {}): Promise<T> {
