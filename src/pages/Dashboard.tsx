@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { apiRequest, createBooking, getToken } from "../api";
+import { useEffect, useMemo, useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { apiRequest, createBooking, getToken } from "../api"
+import c from "./Dashboard.module.scss"
  
 type Booking = {
   id: string;
@@ -154,7 +155,7 @@ export function Dashboard() {
     <div className="dashboard">
       <header className="dashboard__header">
         <div>
-          <h1>Mira Master Panel</h1>
+          <img src="/logo.png" className={c.logo} />
           <p>Deine Buchungen im Überblick.</p>
         </div>
         <button className="button button--ghost" onClick={handleLogout}>
