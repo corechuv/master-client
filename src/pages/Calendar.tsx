@@ -144,13 +144,13 @@ export function Calendar() {
       </div>
       <div className={styles.toolbar}>
         <button className="button button--ghost" onClick={() => setWeekStart(addDays(weekStart, -7))}>
-          ◀
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </button>
         <div className={styles.toolbarLabel}>
           <p>{weekLabel}</p>
         </div>
         <button className="button button--ghost" onClick={() => setWeekStart(addDays(weekStart, 7))}>
-          ▶
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path></svg>
         </button>
       </div>
 
