@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiRequest, getToken } from "../api";
-
+ 
 type Booking = {
   id: string;
   date: string;

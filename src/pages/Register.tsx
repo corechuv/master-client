@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { apiRequest, register } from "../api";
 
 type Master = { id: string; name: string };
-
+ 
 export function Register() {
   const navigate = useNavigate();
   const [masters, setMasters] = useState<Master[]>([]);
